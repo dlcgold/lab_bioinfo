@@ -2,7 +2,7 @@
 
 ## Introduzione
 
-In questa lezione vedremo una pipeline che parte dal sequenziamento, assembla un reference, simula delle read, allinea queste read e fa il variant calling.
+In questa lezione vedremo i tool principali di una pipeline che parte dal sequenziamento, assembla un reference, simula delle read, allinea queste read e fa il variant calling. Vedremo anche come effettuare un assemblaggio.
 
 ## Ambiente
 
