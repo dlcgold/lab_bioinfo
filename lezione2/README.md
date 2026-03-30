@@ -294,7 +294,7 @@ samtools tview
 samtools tview short_align_sorted.bam lambda.fa
 ```
 
-Per curiosità possiamo vedere cosa cambia usando bwa:
+Per curiosità possiamo vedere che su read simulate di questo tipo cambia ben poco usando bwa:
 
 ```shell
 bwa
@@ -303,15 +303,13 @@ bwa mem lambda.fa short_read1.fq short_read2.fq > bwa_align.sam
 diff <(cut -f1,6 bwa_align.sam) <(cut -f1,6 short_align.sam ) -y | grep "[|<>]" | most
 ```
 
-Vediamo su long-reads:
+Vediamo anche su long-reads:
 
 ```shell
 bwa mem lambda.fa long_read.fq > bwa_align_long.sam
 minimap2 -a -x sr lambda.fa long_read.fq > long_align.sam
 diff <(cut -f1,6 bwa_align_long.sam) <(cut -f1,6 long_align.sam ) -W500 -y | grep "[|<>]" | most
 ```
-
-Vedendo che
 
 ## Variant Calling
 
