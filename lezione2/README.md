@@ -198,7 +198,9 @@ most exact_matches.txt
 
 Vediamo ora come effettivamente allineare le nostre short read al reference.
 Usare una programmazione dinamica pura sarebbe troppo costoso quindi solitamente si usa il paradigma _seed-and-extend_, [qui](https://www.researchgate.net/publication/366327922_GPU_Acceleration_of_BWA-MEM_DNA_Sequence_Alignment) ben rappresentato:
+
 ![SE](./img/se.png)
+
 Useremo minimap2, disponibile su [github](https://github.com/lh3/minimap2), sempre sviluppato da Heng Li e successore di [bwa - Burrow-Wheeler Aligner](https://github.com/lh3/bwa) per funzionare anche con long-reads. Mentre bwa usa la BWT, minimap2 si basa sui minimizer.
 
 Come sempre prima vediamo README e help:
@@ -294,6 +296,7 @@ samtools tview short_align_sorted.bam lambda.fa
 ## Variant Calling
 
 Prendiamo spunto da Zverinova, Stepanka, and Victor Guryev. "Variant calling: Considerations, practices, and developments." Human mutation 43.8 (2022): 976-985, per una veloce spiegazione del Variant Calling:
+
 ![VC](./img/vc.jpg)
 
 Dalla scorsa lezione ricordiamo che abbiamo un formato file dedicato, il VCF/BCF.
@@ -336,6 +339,7 @@ Alcune spiegazioni:
 
 A lezione vedrete la teoria dietro agli algoritmi di assemblaggio, mentre oggi vedremo uno dei tanti tool allo stato dell'arte per assemblare reads: hifiasm, disponibile su [github](https://github.com/chhylp123/hifiasm).
 Possiamo sintetizzarne il funzionamento, che si basa, senza entrare nei dettagli, sugli overlap tra le read:
+
 ![ASM](./img/asm.png)
 
 Vediamo in primis README e help:
@@ -354,6 +358,7 @@ ls -lh asm
 
 Ma abbiamo un problema, hifiasm sembra non funzionare... e il motivo è algoritmico: hifiasm lavora su aplotipi, genomi diploidi lunghi e non circolari mentre noi stiamo lavorando su tutto l'opposto.
 Proviamo quindi un assembler dedicato come flye, disponibile su [github](https://github.com/mikolmogorov/Flye). Una panoramica la abbiamo direttamente dal paper, dove si vede l'uso di grafi di De Brujin e non di overlap:
+
 ![ASM2](./img/asm2.png)
 
 Come al solito README e help:
