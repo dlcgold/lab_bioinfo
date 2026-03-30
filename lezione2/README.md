@@ -14,6 +14,8 @@ Primo step creiamo un ambiente conda per questa lezione:
 mamba create -n lab -c conda-forge -c bioconda seqtk wgsim minimap2 samtools bcftools hifiasm flye badread quast wget gzip ropebwt3 bwa -y
 ```
 
+Potete usare conda la posto di mamba... potrebbe metterci il tempo dell'intero laboratorio.
+
 Attiviamo l'ambiente:
 
 ```shell
