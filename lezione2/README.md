@@ -23,7 +23,8 @@ mamba activate lab
 ## Dati
 
 Per questa lezione useremo dati ovviamente molto piccoli.
-Come reference usiamo il [Lambda Phage](https://en.wikipedia.org/wiki/Lambda_phage), Fago Lambda in italiano, che è un batteriofago temperato che infetta Escherichia coli (grazie Wikipedia):
+Come reference usiamo il [Lambda Phage](https://en.wikipedia.org/wiki/Lambda_phage), Fago Lambda in italiano, che è un batteriofago che infetta Escherichia coli (grazie Wikipedia):
+
 ![Lambda Phage](./img/Lambda.jpg)
 
 Come abbiamo visto l'altro giorno sul sito dell'NCBI troviamo tantissimi dati pubblici di tantissimi organismi o meno (non mi spingo in discussioni filosofiche su cosa siano i virus).
