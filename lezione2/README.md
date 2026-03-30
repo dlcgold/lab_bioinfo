@@ -184,6 +184,7 @@ ropebwt3 stat -m lambda.fmd
 ```
 
 In termini di pattern-matching calcoliamo i super-maximal exact matches. Senza entrare nei formalismi, usiamo questa immagine presa da questo [paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC4449525/) di Vyverman et al.:
+
 ![SMEM](./img/smem.jpg)
 
 Computiamo gli smem:
