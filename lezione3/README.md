@@ -72,7 +72,7 @@ Come per il caso lineare possiamo mappare le nostre read contro il grafo.
 - **[vg mpmap](https://github.com/vgteam/vg/wiki/Multipath-alignments-and-vg-mpmap)**
 
   - **Input:** Short/long read e un grafo indicizzato.
-  - **Tipologia di Allineamento:** Allineamenti "multi-percorso" (multipath) che catturano l'incertezza locale. È fondamentale in ambiti come la pantrascriptomica.
+  - **Tipologia di Allineamento:** Allineamenti multipath che possono saltare tra più path. È fondamentale in ambiti come la pantrascriptomica.
 
 - **[vg giraffe](https://github.com/vgteam/vg/wiki)**
 
