@@ -3,7 +3,7 @@
 # Lezione 3: Dai Genomi Lineari ai Genomi a Grafo (Pangenomica)
 
 Nella lezione precedente abbiamo usato un genoma di riferimento lineare. Tuttavia, questo approccio ha un limite: ignora completamente la diversità genetica della popolazione (reference-bias).
-La soluzione moderna è la **Pangenomica**: rappresentando multipli genomi, ad esempio, un grafo.
+La soluzione moderna è la pangenomica: rappresentando multipli genomi, ad esempio, con un grafo.
 
 Per prima cosa, installiamo i tool necessari nel nostro ambiente:
 
