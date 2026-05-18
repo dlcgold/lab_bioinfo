@@ -3,3 +3,4 @@
 - [Lezione 1](https://github.com/dlcgold/lab_bioinfo/blob/main/lezione1): formati file
 - [Lezione 2](https://github.com/dlcgold/lab_bioinfo/blob/main/lezione2): allineamenti, assemblaggio e variant calling
 - [Lezione 3](https://github.com/dlcgold/lab_bioinfo/blob/main/lezione3): grafo del pangenoma
+- [Lezione 4](https://github.com/dlcgold/lab_bioinfo/blob/main/lezione4): snakemake

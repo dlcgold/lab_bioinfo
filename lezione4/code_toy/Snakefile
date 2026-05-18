@@ -1,0 +1,22 @@
+rule all:
+    input:
+        "messaggio_maiuscolo.txt"
+
+rule crea_messaggio:
+    output:
+        "messaggio.txt"
+    shell:
+        "echo 'Ciao, benvenuti alla lezione su Snakemake!' > {output}"
+
+rule rendi_maiuscolo:
+    input:
+        "messaggio.txt"
+    output:
+        "messaggio_maiuscolo.txt"
+    threads: 1
+    benchmark:
+        "benchmarks/rendi_maiuscolo.txt"
+    conda:
+        "env.yaml"
+    shell:
+        "tr '[:lower:]' '[:upper:]' < {input} > {output}"
