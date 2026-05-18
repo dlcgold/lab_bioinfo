@@ -60,7 +60,7 @@ Una regola può essere molto complessa con vari ca,pi, tra cui:
 
 ## Un Primo Esempio
 
-````python
+```python
 rule all:
     input:
         "messaggio_maiuscolo.txt"
@@ -99,7 +99,7 @@ Prima di eseguire, simuliamo il processo con `-n`. È fondamentale per controlla
 
 ```shell
 snakemake -np --use-conda
-````
+```
 
 Il terminale vi mostrerà in verde il piano di esecuzione, con l'ordine esatto delle regole che intende avviare.
 
