@@ -68,7 +68,6 @@ rule all:
 rule crea_messaggio:
     output:
         "messaggio.txt"
-    # Un comando semplice, non richiede configurazioni extra
     shell:
         "echo 'Ciao, benvenuti alla lezione su Snakemake!' > {output}"
 
