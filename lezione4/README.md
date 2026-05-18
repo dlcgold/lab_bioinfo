@@ -84,7 +84,7 @@ rule rendi_maiuscolo:
         "env.yaml"
     shell:
         "tr '[:lower:]' '[:upper:]' < {input} > {output}"
-``
+```
 
 1. Legge la prima regola (`rule all`) e vede che l'obiettivo è avere `messaggio_maiuscolo.txt`.
 2. Cerca una regola che lo produca e trova `rendi_maiuscolo`.
