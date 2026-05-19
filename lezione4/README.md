@@ -102,7 +102,8 @@ snakemake -np --use-conda
 
 Il terminale vi mostrerà in verde il piano di esecuzione, con l'ordine esatto delle regole che intende avviare.
 
-Esecuzione parallela (Core vs Jobs)\*\*
+## Esecuzione parallela (Core vs Jobs)
+
 Lanciamo la pipeline. Esistono due flag principali per le risorse:
 
 - `--cores N` (o `-c N`): Quanti core locali del vostro PC Snakemake può usare al massimo per parallelizzare.
