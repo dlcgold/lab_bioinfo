@@ -52,7 +52,7 @@ Una regola può essere molto complessa con vari ca,pi, tra cui:
 - **`threads`**: Il numero di core CPU richiesti dalla regola.
 - **`log`**: Il percorso dove salvare l'output a schermo (stdout) e gli errori (stderr) del tool..
 - **`benchmark`**: Genera un file `.tsv` con le statistiche di esecuzione (tempo impiegato, picco di RAM utilizzata).
-- **`conda`**: Permette di specificare un file `ambiente.yaml`.4
+- **`conda`**: Permette di specificare un file `ambiente.yaml`.
 - **`shell`/`script`/`run`**:
   - `shell`: Esegue comandi Bash.
   - `script`: Permette di eseguire uno script Python o R esterno (es. `script: "plot.py"`). Le variabili della regola saranno accessibili direttamente nello script tramite l'oggetto `snakemake` (es. `snakemake.input[0]`).
@@ -68,7 +68,7 @@ rule all:
 rule crea_messaggio:
     output:
         "messaggio.txt"
-    shell:
+    shel:
         "echo 'Ciao, benvenuti alla lezione su Snakemake!' > {output}"
 
 rule rendi_maiuscolo:
