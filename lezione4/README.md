@@ -120,5 +120,5 @@ Provate a rilanciare lo stesso comando: Snakemake vi dirà `Nothing to be done` 
 ## Pipeline per variant calling
 
 In questa lezione dovrete costruire una pipeline per fare quanto visto nelle lezioni precedenti.
-Dovrete fare una pipeline per variant calling che utlizzi input lineare e grafo, come visto a lezione,
+Dovrete fare una pipeline per variant calling che utlizzi input lineare, come visto a lezione,
 e read simulate. Fate un veloce confronto in tempo, spazio e qualità dei risultati del variant calling e dei grafi costruiti da esso.
