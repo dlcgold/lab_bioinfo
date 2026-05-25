@@ -118,7 +118,7 @@ snakemake --cores 1
 Controllate la cartella: ora avete i file creati automaticamente.
 Provate a rilanciare lo stesso comando: Snakemake vi dirà `Nothing to be done` perché i file sono già aggiornati.
 
-## Appendice: Concetti Avanzati di Snakemake e Python
+## Concetti Avanzati di Snakemake e Python
 
 ### Checkpoint (Snakemake)
 
