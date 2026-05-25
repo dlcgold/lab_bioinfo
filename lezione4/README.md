@@ -50,7 +50,7 @@ Una regola può essere molto complessa con vari ca,pi, tra cui:
 - **`input` e `output`**: I file di partenza e di arrivo. Si possono usare **nomi** a questi file (es. `bam="file.bam"`).
 - **`params`**: Parametri testuali o numerici che non sono file.
 - **`threads`**: Il numero di core CPU richiesti dalla regola.
-- **`log`**: Il percorso dove salvare l'output a schermo (stdout) e gli errori (stderr) del tool..
+- **`log`**: Il percorso dove salvare l'output a schermo (stdout) e gli errori (stderr) del tool.
 - **`benchmark`**: Genera un file `.tsv` con le statistiche di esecuzione (tempo impiegato, picco di RAM utilizzata).
 - **`conda`**: Permette di specificare un file `ambiente.yaml`.
 - **`shell`/`script`/`run`**:
