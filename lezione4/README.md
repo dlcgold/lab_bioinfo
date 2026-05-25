@@ -151,7 +151,7 @@ Poiché Snakemake si basa su Python, possiamo usare librerie native per gestire 
 - **`os.path.basename(percorso)`**: estrae solo il nome finale del file da un percorso completo
 - **`.isdigit()` e `.isalpha()`**: sono metodi base delle stringhe in Python. Restituiscono `True` o `False`
 
-### Expand (Funzione Nativa Snakemake)
+### Expand (Funzione Nativa di Snakemake)
 
 La funzione `expand()` prende un modello di testo (contenente una o più variabili tra parentesi graffe) e una lista di valori, e genera automaticamente tutte le combinazioni possibili, tipo `expand("processed/text_{txt_id}.done", txt_id=['a', 'b'])`
 
@@ -160,9 +160,9 @@ La funzione `expand()` prende un modello di testo (contenente una o più variabi
 Esempio complesso in cui:
 
 - ha una regola checkpoint per creare un tot di file non conosciuti a priori
-- se vede una variabile chiamata `{num_id}`, **devi** accettarla solo se contiene numeri (da 0 a 9)
-- se vede una variabile chiamata `{txt_id}`, devi accettarla solo se contiene lettere (maiuscole o minuscole)
-- funzioni python che aggreganpo i risultati
+- se vede una variabile chiamata `{num_id}`, deve accettarla solo se contiene numeri (da 0 a 9)
+- se vede una variabile chiamata `{txt_id}`, deve accettarla solo se contiene lettere (maiuscole o minuscole)
+- ha funzioni python che aggreganpo i risultati
 
 ```python
 import os
