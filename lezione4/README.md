@@ -69,6 +69,8 @@ dependencies:
   - coreutils
 ```
 
+Lo Snakefile sarà:
+
 ```python
 rule all:
     input:
