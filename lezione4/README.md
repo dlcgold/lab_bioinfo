@@ -102,7 +102,7 @@ snakemake -np --use-conda
 
 Il terminale vi mostrerà in verde il piano di esecuzione, con l'ordine esatto delle regole che intende avviare.
 
-## Esecuzione parallela (Core vs Jobs)
+### Esecuzione parallela (Core vs Jobs)
 
 Lanciamo la pipeline. Esistono due flag principali per le risorse:
 
@@ -117,6 +117,150 @@ snakemake --cores 1
 
 Controllate la cartella: ora avete i file creati automaticamente.
 Provate a rilanciare lo stesso comando: Snakemake vi dirà `Nothing to be done` perché i file sono già aggiornati.
+
+## Appendice: Concetti Avanzati di Snakemake e Python
+
+Nell'ultimo esempio abbiamo introdotto alcune meccaniche avanzate che rendono Snakemake uno strumento estremamente flessibile. Ecco una spiegazione dei concetti chiave utilizzati.
+
+### Checkpoint (Snakemake)
+
+Normalmente, Snakemake deve calcolare l'intero grafo delle dipendenze (il DAG) prima di eseguire anche un solo comando. Deve sapere esattamente quali file verranno prodotti e di quanti passaggi ha bisogno.
+Tuttavia, in bioinformatica, alcuni tool generano un numero imprevisto di output (ad esempio, suddividere un genoma in un numero variabile di frammenti).
+La direttiva `checkpoint` risolve questo problema. Quando Snakemake incontra un checkpoint:
+
+1. Mette in pausa la costruzione del grafo.
+2. Esegue il comando bash.
+3. Ispeziona la cartella di output per vedere quanti e quali file sono stati effettivamente creati.
+4. Riprende la costruzione del grafo usando queste nuove informazioni.
+
+### Wildcard Constraints (Snakemake)
+
+Le wildcard (come `{sample}`) sono variabili che Snakemake cerca di riempire facendo combaciare i nomi dei file. A volte, però, rischiano di catturare i file sbagliati.
+Usando `wildcard_constraints`, applichiamo delle Espressioni Regolari (Regex) per limitare i valori accettabili.
+
+- L'espressione `\d+` significa "deve contenere solo numeri".
+- L'espressione `[a-zA-Z]+` significa "deve contenere solo lettere".
+  Questo meccanismo agisce da filtro, permettendo di smistare i file in percorsi di analisi differenti in modo automatico.
+
+### Funzioni Standard di Python
+
+Poiché Snakemake si basa su Python, possiamo usare potenti librerie native per gestire la logica dei percorsi e dei file direttamente all'interno delle nostre regole.
+
+- **`glob.glob(pattern)`**: È una funzione che cerca nel disco tutti i file che corrispondono a un certo criterio (simile al comando `ls *.txt` nel terminale). Nel nostro esempio, la usiamo dopo il checkpoint per ottenere una lista di tutti i file creati nella cartella.
+- **`os.path.join(percorso1, percorso2)`**: È il modo corretto in Python per unire i percorsi dei file. Invece di incollare stringhe manualmente (che potrebbe causare errori se si passa da Linux a Windows per via degli slash diversi `/` vs `\`), questa funzione costruisce il percorso in modo sicuro e indipendente dal sistema operativo in uso.
+- **`os.path.basename(percorso)`**: Estrae solo il nome finale del file da un percorso completo (da `cartella/sottocartella/file.txt` restituisce solo `file.txt`).
+- **`.isdigit()` e `.isalpha()`**: Sono metodi base delle stringhe in Python. Restituiscono `True` o `False`. Li usiamo per controllare se l'ID estratto dal nome del file sia effettivamente un numero o una parola, garantendo una perfetta sincronia con i vincoli imposti nello Snakefile.
+
+### Expand (Funzione Nativa Snakemake)
+
+La funzione `expand()` è il moltiplicatore logico di Snakemake. Invece di scrivere a mano lunghe liste di file, `expand` prende un modello di testo (contenente una o più variabili tra parentesi graffe) e una lista di valori, e genera automaticamente tutte le combinazioni possibili.
+Nel nostro script, la usiamo alla fine delle funzioni di aggregazione. Se la variabile `valid_ids` contiene la lista `["1", "2"]`, l'istruzione:
+`expand("processed/numeric_{num_id}.done", num_id=valid_ids)`
+verrà tradotta istantaneamente da Snakemake in:
+`["processed/numeric_1.done", "processed/numeric_2.done"]`.
+
+### Esempio
+
+Esempio complesso in cui:
+
+- ha una regola checkpoint per creare un tot di file non conosciuti a priori
+- se vede una variabile chiamata `{num_id}`, **devi** accettarla solo se contiene numeri (da 0 a 9)
+- se vede una variabile chiamata `{txt_id}`, devi accettarla solo se contiene lettere (maiuscole o minuscole)
+- funzioni python che aggreganpo i risultati
+
+```python
+import os
+import glob
+
+rule all:
+    input:
+        "numeric_report.txt",
+        "text_report.txt"
+
+rule generate_initial_data:
+    output:
+        "data.txt"
+    shell:
+        "echo 'Dati originali' > {output}"
+
+
+checkpoint split_data:
+    input:
+        "data.txt"
+    output:
+        directory("chunks/")
+    shell:
+        """
+        mkdir -p chunks/
+
+        echo "Data 1" > chunks/chunk_1.txt
+        echo "Data 2" > chunks/chunk_2.txt
+        echo "Data 3" > chunks/chunk_3.txt
+
+        echo "Data Alpha" > chunks/chunk_alpha.txt
+        echo "Data Beta" > chunks/chunk_beta.txt
+        """
+
+rule process_numeric:
+    input:
+        "chunks/chunk_{num_id}.txt"
+    output:
+        "processed/numeric_{num_id}.done"
+    wildcard_constraints:
+        num_id="\d+"
+    shell:
+        "echo 'Processed numeric chunk: {wildcards.num_id}' > {output}"
+
+rule process_text:
+    input:
+        "chunks/chunk_{txt_id}.txt"
+    output:
+        "processed/text_{txt_id}.done"
+    wildcard_constraints:
+        txt_id="[a-zA-Z]+"
+    shell:
+        "echo 'Processed text chunk: {wildcards.txt_id}' > {output}"
+
+def aggregate_numeric(wildcards):
+    checkpoint_dir = checkpoints.split_data.get(**wildcards).output[0]
+    chunk_files = glob.glob(os.path.join(checkpoint_dir, "chunk_*.txt"))
+    valid_ids = []
+
+    for f in chunk_files:
+        file_id = os.path.basename(f).split('_')[1].split('.')[0]
+        if file_id.isdigit():
+            valid_ids.append(file_id)
+
+    return expand("processed/numeric_{num_id}.done", num_id=valid_ids)
+
+def aggregate_text(wildcards):
+    checkpoint_dir = checkpoints.split_data.get(**wildcards).output[0]
+    chunk_files = glob.glob(os.path.join(checkpoint_dir, "chunk_*.txt"))
+    valid_ids = []
+
+    for f in chunk_files:
+        file_id = os.path.basename(f).split('_')[1].split('.')[0]
+        if file_id.isalpha():
+            valid_ids.append(file_id)
+
+    return expand("processed/text_{txt_id}.done", txt_id=valid_ids)
+
+rule gather_numeric:
+    input:
+        aggregate_numeric
+    output:
+        "numeric_report.txt"
+    shell:
+        "cat {input} > {output}"
+
+rule gather_text:
+    input:
+        aggregate_text
+    output:
+        "text_report.txt"
+    shell:
+        "cat {input} > {output}"
+```
 
 ## Pipeline per variant calling
 
