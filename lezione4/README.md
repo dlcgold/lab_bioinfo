@@ -266,9 +266,9 @@ rule gather_text:
         "cat {input} > {output}"
 ```
 
-## Pipeline per variant calling
+## Esercizio: pipeline per variant calling
 
-In questa lezione dovrete costruire una pipeline per fare quanto visto nelle lezioni precedenti.
+Costruite una pipeline per fare quanto visto nelle lezioni precedenti.
 Dovrete fare una pipeline per variant calling che utlizzi input lineare, come visto a lezione,
 e read simulate. Fate un veloce confronto in tempo, spazio e qualità dei risultati del variant calling e dei grafi costruiti da esso.
 Potenzialmente non serve nessuna delle cose avanzate viste ora
