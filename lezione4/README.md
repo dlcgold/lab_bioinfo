@@ -42,7 +42,7 @@ rule nome_della_regola:
         "comando_da_eseguire {input} > {output}"
 ```
 
-Snakemake lavora "a ritroso".
+Snakemake lavora a ritroso.
 L'idea è dire a Snakemake il file finale, e lui cerca la regola che produce quel file. Se a quella regola mancano gli `input`, cercherà un'altra regola che produca quegli `input`, e così via.
 
 Una regola può essere molto complessa con vari ca,pi, tra cui:
