@@ -179,7 +179,6 @@ rule generate_initial_data:
     shell:
         "echo 'Dati originali' > {output}"
 
-
 checkpoint split_data:
     input:
         "data.txt"
@@ -188,11 +187,9 @@ checkpoint split_data:
     shell:
         """
         mkdir -p chunks/
-
         echo "Data 1" > chunks/chunk_1.txt
         echo "Data 2" > chunks/chunk_2.txt
         echo "Data 3" > chunks/chunk_3.txt
-
         echo "Data Alpha" > chunks/chunk_alpha.txt
         echo "Data Beta" > chunks/chunk_beta.txt
         """
@@ -263,3 +260,4 @@ rule gather_text:
 In questa lezione dovrete costruire una pipeline per fare quanto visto nelle lezioni precedenti.
 Dovrete fare una pipeline per variant calling che utlizzi input lineare, come visto a lezione,
 e read simulate. Fate un veloce confronto in tempo, spazio e qualità dei risultati del variant calling e dei grafi costruiti da esso.
+Potenzialmente non serve nessuna delle cose avanzate viste ora
